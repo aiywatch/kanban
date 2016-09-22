@@ -1,11 +1,15 @@
 import React from 'react';
 
-({editing, value, onEdit, ...props}) => {
+import classnames from 'classnames';
+
+export default ({editing, value, onEdit, className, ...props}) => {
   if(editing){
-    return <Edit value={value} onEdit={onEdit} {...props} />;
+    return <Edit className={className}
+      value={value} onEdit={onEdit} {...props} />;
   }
 
-  return <span {...props}>{value}</span>;
+  return <span className={classnames('value', className)}
+    {...props}>{value}</span>;
 }
 
 
@@ -23,10 +27,11 @@ Editable.Value = ({value, ...props}) =>
 
 class Edit extends React.Component {
   render(){
-    const {value, ...props} = this.props;
+    const {className, value, ...props} = this.props;
 
     return <input
       type="text"
+      className={classnames('edit', className)}
       autoFocus={true}
       defaultValue={value}
       onBlur={this.finishEdit}
@@ -50,4 +55,4 @@ class Edit extends React.Component {
 }
 Editable.Edit = Edit;
 
-export default Editable;
+//export default Editable;
